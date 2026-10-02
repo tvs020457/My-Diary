@@ -494,7 +494,7 @@
     if (triggerSave) scheduleAutoSave();
   }
 
-  function setStamp(stampObj, triggerSave = true) {
+  function setStamp(stampObj, triggerSave = true, animate = true) {
     activeStamp = stampObj;
     moodBadgeSymbol.textContent = stampObj.symbol;
     moodBadgeLabel.textContent = stampObj.caption;
@@ -502,6 +502,13 @@
     document.querySelectorAll('.stamp-pill-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.stamp === stampObj.id);
     });
+
+    const moodBadge = document.getElementById('mood-stamp-badge');
+    if (moodBadge && animate) {
+      moodBadge.classList.remove('stamped');
+      void moodBadge.offsetWidth; // trigger DOM reflow for CSS keyframe animation
+      moodBadge.classList.add('stamped');
+    }
 
     if (triggerSave) scheduleAutoSave();
   }
@@ -606,7 +613,21 @@
       if (!btn) return;
       playClickSound();
       const obj = stampMap[btn.dataset.stamp];
-      if (obj) setStamp(obj);
+      if (obj) setStamp(obj, true, true);
+    });
+  }
+
+  // Interactive Line Height & Font Size Slider
+  const lineSizeSlider = document.getElementById('line-size-slider');
+  if (lineSizeSlider) {
+    lineSizeSlider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      document.documentElement.style.setProperty('--ruled-line-height', `${val}px`);
+      // Proportionally scale body font size
+      const bodyRem = (val * 0.036).toFixed(2);
+      noteBodyTextarea.style.fontSize = `${bodyRem}rem`;
+      noteTitleInput.style.height = `${val}px`;
+      noteTitleInput.style.lineHeight = `${val}px`;
     });
   }
 
@@ -668,6 +689,16 @@
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
+
+  // Prevent mobile pull-to-refresh rubber-banding on body
+  document.body.addEventListener('touchmove', function (e) {
+    const isScrollable = e.target.closest('#note-body-textarea') || 
+                         e.target.closest('#monthly-entries-list') || 
+                         e.target.closest('#modal-transcript-preview');
+    if (!isScrollable) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 
   // Initial Load
   selectDate(currentDate);

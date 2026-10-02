@@ -42,21 +42,27 @@
 
 html, body {
   width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100%;
+  height: 100dvh;
   background-color: var(--desk-bg);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #2b1f18;
-  overflow-x: hidden;
+  overflow: hidden;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 /* Desk Surface & Ambient Lighting */
 .desk-container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 16px 14px calc(24px + env(safe-area-inset-bottom, 0px));
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  padding: 12px 14px calc(14px + env(safe-area-inset-bottom, 0px));
   background: 
     radial-gradient(circle 800px at 50% 15%, rgba(255, 235, 190, 0.12), transparent 70%),
     radial-gradient(ellipse 1000px 600px at 50% 100%, rgba(20, 10, 5, 0.8), transparent 80%),
@@ -251,7 +257,7 @@ html, body {
 .corner-bl { bottom: 3px; left: 3px; border-width: 0 0 2px 2px; border-bottom-left-radius: 9px; }
 .corner-br { bottom: 3px; right: 3px; border-width: 0 2px 2px 0; border-bottom-right-radius: 9px; }
 
-/* Satin Bookmark Ribbon */
+/* Satin Bookmark Ribbon with Interactive Physics */
 .ribbon-bookmark {
   position: absolute;
   top: -8px;
@@ -262,11 +268,28 @@ html, body {
   z-index: 15;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s ease;
+  transform-origin: top center;
+  animation: ribbonIdle 7s ease-in-out infinite alternate;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.ribbon-bookmark:hover {
-  transform: translateY(3px);
+@keyframes ribbonIdle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(1.8deg); }
+  100% { transform: rotate(-1.2deg); }
+}
+
+.ribbon-bookmark:hover,
+.ribbon-bookmark:active {
+  animation: ribbonSwing 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: brightness(1.15);
+}
+
+@keyframes ribbonSwing {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-6deg); }
+  60% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
 }
 
 .ribbon-cut {
@@ -281,12 +304,13 @@ html, body {
 }
 
 /* -------------------------------------------------------------
-   JOURNAL CARDS (COMMON PAGE FOUNDATION)
+   JOURNAL CARDS (PAGE FOUNDATION WITH 3D FLIP ANIMATION)
    ------------------------------------------------------------- */
 .journal-card {
   position: relative;
   width: 100%;
-  min-height: 580px;
+  flex: 1;
+  min-height: 0;
   background-color: var(--paper-bg);
   border-radius: 6px;
   overflow: hidden;
@@ -295,7 +319,28 @@ html, body {
     inset 0 0 20px rgba(180, 140, 90, 0.12);
   display: flex;
   flex-direction: column;
-  transition: opacity 0.22s ease, transform 0.22s ease;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  transform-origin: left center;
+  animation: pageFlipIn 0.3s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes pageFlipIn {
+  0% {
+    opacity: 0.15;
+    transform: rotateY(-12deg) scale(0.98);
+    filter: brightness(0.93);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Universal Tactile Button Depression */
+button:active {
+  transform: scale(0.95) translateY(1.5px) !important;
 }
 
 .journal-card.hidden {
@@ -305,9 +350,13 @@ html, body {
 .card-inner {
   position: relative;
   flex: 1;
-  padding: 20px 22px 18px;
+  min-height: 0;
+  padding: 16px 20px 14px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 /* Subtle micro-texture */
@@ -718,17 +767,24 @@ html, body {
   text-transform: uppercase;
 }
 
-/* Notebook Tools Strip (Ink Pickers, Fonts, Stamps) */
+/* Notebook Tools Strip (Ergonomic Two-Row Layout on Mobile & Desktop) */
 .notebook-tools-strip {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
   padding-left: 48px;
   padding-top: 6px;
   padding-bottom: 8px;
   border-top: 1px solid rgba(160, 120, 80, 0.2);
   border-bottom: 1px solid rgba(160, 120, 80, 0.2);
   margin-bottom: 8px;
+}
+
+.tools-upper-row,
+.tools-lower-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
 }
@@ -746,20 +802,20 @@ html, body {
   letter-spacing: 1px;
 }
 
-/* Ink Dots */
+/* Interactive Ink Dots with Pop Animation */
 .ink-dots {
   display: flex;
   gap: 7px;
 }
 
 .ink-dot {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.15s ease, box-shadow 0.15s ease;
   touch-action: manipulation;
 }
 
@@ -767,10 +823,21 @@ html, body {
   transform: scale(1.15);
 }
 
+.ink-dot:active {
+  transform: scale(0.88);
+}
+
 .ink-dot.active {
   transform: scale(1.22);
   border-color: #fce9a7;
-  box-shadow: 0 0 6px rgba(196, 151, 88, 0.7);
+  box-shadow: 0 0 8px rgba(196, 151, 88, 0.8);
+  animation: inkDropPop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes inkDropPop {
+  0% { transform: scale(0.85); }
+  60% { transform: scale(1.36); }
+  100% { transform: scale(1.22); }
 }
 
 .dot-blue { background: #1c3d69; }
@@ -784,43 +851,122 @@ html, body {
 .clean-font-select {
   background: #fbf7ee;
   border: 1px solid #c9b090;
-  border-radius: 4px;
-  padding: 3px 6px;
-  font-size: 0.76rem;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
   color: #4a2e18;
   cursor: pointer;
   outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Mood Stamps */
+.clean-font-select:focus {
+  border-color: var(--leather-accent);
+  box-shadow: 0 0 5px rgba(196, 151, 88, 0.4);
+}
+
+/* Mood Stamps with Tactile Press */
 .stamp-pill-dock {
   display: flex;
-  gap: 4px;
+  gap: 5px;
 }
 
 .stamp-pill-btn {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(160, 120, 80, 0.3);
-  border-radius: 4px;
-  width: 26px;
-  height: 26px;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: transform 0.12s ease, background 0.15s ease;
   touch-action: manipulation;
 }
 
 .stamp-pill-btn:hover {
-  transform: scale(1.12);
+  transform: scale(1.14);
   background: #fff;
+}
+
+.stamp-pill-btn:active {
+  transform: scale(0.86);
 }
 
 .stamp-pill-btn.active {
   background: #f9ecd8;
   border-color: #8f642a;
+  box-shadow: inset 0 1px 2px rgba(143, 100, 42, 0.3);
+}
+
+/* Mood Stamp Badge in Header with Stamp Down Animation */
+.mood-stamp-badge.stamped {
+  animation: stampDown 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes stampDown {
+  0% { transform: scale(1.4) rotate(-6deg); opacity: 0.5; }
+  65% { transform: scale(0.92) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Vintage Line Height / Font Size Slider */
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.slider-icon-small {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #8c603b;
+}
+
+.slider-icon-large {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #55331a;
+}
+
+.vintage-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  background: #d8c2a5;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.vintage-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fce9a7, #c49758);
+  border: 1.5px solid #7c581a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.vintage-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.vintage-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fce9a7, #c49758);
+  border: 1.5px solid #7c581a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
 /* Ruled Title Input */
@@ -846,18 +992,24 @@ html, body {
 .notebook-body-wrap {
   position: relative;
   flex: 1;
+  min-height: 0;
   display: flex;
+  overflow: hidden;
   margin-top: 2px;
 }
 
 .notebook-ruled-body {
   width: 100%;
   height: 100%;
-  min-height: 380px;
+  flex: 1;
+  min-height: 0;
   border: none;
   outline: none;
   resize: none;
   background-color: transparent;
+  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   
   /* Authentic subtle blue ruled lines */
   background-image: repeating-linear-gradient(
@@ -1077,7 +1229,8 @@ html, body {
   }
 
   .journal-card {
-    min-height: calc(100dvh - 130px);
+    flex: 1;
+    min-height: 0;
   }
 
   .card-inner {

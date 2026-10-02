@@ -164,42 +164,53 @@
               </div>
             </div>
 
-            <!-- Refined Tools Strip (Ink Colors, Fonts, Mood Stamps) -->
+            <!-- Refined Ergonomic Tools Strip for Mobile & Desktop -->
             <div class="notebook-tools-strip">
-              <!-- Ink Selector -->
-              <div class="tool-group inks-group">
-                <span class="tool-caption">INK:</span>
-                <div class="ink-dots" id="ink-dots-picker">
-                  <button class="ink-dot active dot-blue" data-ink="ink-blue" title="Midnight Blue"></button>
-                  <button class="ink-dot dot-black" data-ink="ink-black" title="Charcoal Black"></button>
-                  <button class="ink-dot dot-sepia" data-ink="ink-sepia" title="Vintage Sepia"></button>
-                  <button class="ink-dot dot-crimson" data-ink="ink-crimson" title="Carmine Red"></button>
-                  <button class="ink-dot dot-sage" data-ink="ink-sage" title="Sage Green"></button>
-                  <button class="ink-dot dot-pencil" data-ink="ink-pencil" title="Graphite Pencil"></button>
+              <!-- Row 1: Ink Palette & Font Family -->
+              <div class="tools-upper-row">
+                <div class="tool-group inks-group">
+                  <span class="tool-caption">INK:</span>
+                  <div class="ink-dots" id="ink-dots-picker">
+                    <button class="ink-dot active dot-blue" data-ink="ink-blue" title="Midnight Blue"></button>
+                    <button class="ink-dot dot-black" data-ink="ink-black" title="Charcoal Black"></button>
+                    <button class="ink-dot dot-sepia" data-ink="ink-sepia" title="Vintage Sepia"></button>
+                    <button class="ink-dot dot-crimson" data-ink="ink-crimson" title="Carmine Red"></button>
+                    <button class="ink-dot dot-sage" data-ink="ink-sage" title="Sage Green"></button>
+                    <button class="ink-dot dot-pencil" data-ink="ink-pencil" title="Graphite Pencil"></button>
+                  </div>
+                </div>
+
+                <div class="tool-group font-group">
+                  <span class="tool-caption">FONT:</span>
+                  <select id="select-font-style" class="clean-font-select">
+                    <option value="font-kalam" selected>Cursive Script</option>
+                    <option value="font-caveat">Informal Hand</option>
+                    <option value="font-cormorant">Book Serif</option>
+                    <option value="font-inter">Clean Modern</option>
+                  </select>
                 </div>
               </div>
 
-              <!-- Font Selector -->
-              <div class="tool-group font-group">
-                <span class="tool-caption">FONT:</span>
-                <select id="select-font-style" class="clean-font-select">
-                  <option value="font-kalam" selected>Cursive Script</option>
-                  <option value="font-caveat">Informal Hand</option>
-                  <option value="font-cormorant">Book Serif</option>
-                  <option value="font-inter">Clean Modern</option>
-                </select>
-              </div>
+              <!-- Row 2: Mood Stamps & Interactive Line/Font Size Slider -->
+              <div class="tools-lower-row">
+                <div class="tool-group stamp-group">
+                  <span class="tool-caption">STAMP:</span>
+                  <div class="stamp-pill-dock" id="stamp-pill-dock">
+                    <button class="stamp-pill-btn active" data-stamp="stamp-joy" title="Joyful">☀️</button>
+                    <button class="stamp-pill-btn" data-stamp="stamp-coffee" title="Peaceful Coffee">☕</button>
+                    <button class="stamp-pill-btn" data-stamp="stamp-rain" title="Reflective Rain">🌧️</button>
+                    <button class="stamp-pill-btn" data-stamp="stamp-star" title="Inspired">⭐</button>
+                    <button class="stamp-pill-btn" data-stamp="stamp-heart" title="Beloved">❤️</button>
+                    <button class="stamp-pill-btn" data-stamp="stamp-leaf" title="Grounded">🌿</button>
+                  </div>
+                </div>
 
-              <!-- Mood Stamp Selector -->
-              <div class="tool-group stamp-group">
-                <span class="tool-caption">STAMP:</span>
-                <div class="stamp-pill-dock" id="stamp-pill-dock">
-                  <button class="stamp-pill-btn active" data-stamp="stamp-joy" title="Joyful">☀️</button>
-                  <button class="stamp-pill-btn" data-stamp="stamp-coffee" title="Peaceful Coffee">☕</button>
-                  <button class="stamp-pill-btn" data-stamp="stamp-rain" title="Reflective Rain">🌧️</button>
-                  <button class="stamp-pill-btn" data-stamp="stamp-star" title="Inspired">⭐</button>
-                  <button class="stamp-pill-btn" data-stamp="stamp-heart" title="Beloved">❤️</button>
-                  <button class="stamp-pill-btn" data-stamp="stamp-leaf" title="Grounded">🌿</button>
+                <!-- Interactive Text & Line Spacing Slider -->
+                <div class="tool-group slider-group">
+                  <span class="tool-caption">SIZE:</span>
+                  <span class="slider-icon-small">A-</span>
+                  <input type="range" id="line-size-slider" min="28" max="42" value="34" step="2" class="vintage-slider" title="Adjust Ruled Line &amp; Font Size">
+                  <span class="slider-icon-large">A+</span>
                 </div>
               </div>
             </div>
