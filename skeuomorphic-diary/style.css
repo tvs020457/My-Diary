@@ -92,13 +92,14 @@ html, body {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 780px;
+  max-width: 960px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   gap: 12px;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .brand-badge {
@@ -215,7 +216,10 @@ html, body {
   position: relative;
   z-index: 5;
   width: 100%;
-  max-width: 780px;
+  max-width: 960px;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
   display: flex;
   justify-content: center;
 }
@@ -223,10 +227,13 @@ html, body {
 .moleskine-journal {
   position: relative;
   width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
   background: linear-gradient(145deg, #382115 0%, #25150d 60%, #1c0f09 100%);
   border: 1px solid #1a0c06;
   border-radius: var(--journal-radius);
-  padding: 10px 10px 12px;
+  padding: 10px 12px 12px;
   box-shadow: 
     0 20px 45px -8px rgba(0, 0, 0, 0.8),
     0 8px 18px rgba(0, 0, 0, 0.6),
@@ -309,6 +316,7 @@ html, body {
 .journal-card {
   position: relative;
   width: 100%;
+  height: 100%;
   flex: 1;
   min-height: 0;
   background-color: var(--paper-bg);
@@ -349,9 +357,11 @@ button:active {
 
 .card-inner {
   position: relative;
+  width: 100%;
+  height: 100%;
   flex: 1;
   min-height: 0;
-  padding: 16px 20px 14px;
+  padding: 12px 18px 10px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -374,10 +384,11 @@ button:active {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(160, 120, 80, 0.25);
-  padding-bottom: 12px;
-  margin-bottom: 14px;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .cal-title-block {
@@ -540,12 +551,13 @@ button:active {
 
 /* Monthly Entries Drawer */
 .calendar-entries-drawer {
-  margin-top: 14px;
+  margin-top: 10px;
   flex: 1;
+  min-height: 80px;
   background: rgba(255, 255, 255, 0.45);
   border: 1px solid rgba(160, 120, 75, 0.25);
   border-radius: 6px;
-  padding: 10px 12px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -558,6 +570,7 @@ button:active {
   border-bottom: 1px dashed rgba(160, 120, 75, 0.3);
   padding-bottom: 6px;
   margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .drawer-title {
@@ -576,7 +589,8 @@ button:active {
 .monthly-entries-list {
   list-style: none;
   overflow-y: auto;
-  max-height: 120px;
+  flex: 1;
+  max-height: none;
 }
 
 .monthly-entries-list::-webkit-scrollbar { width: 4px; }
@@ -632,7 +646,8 @@ button:active {
   font-size: 0.72rem;
   color: #8c6a4a;
   font-style: italic;
-  margin-top: 10px;
+  margin-top: 6px;
+  flex-shrink: 0;
 }
 
 .hint-icon {
@@ -664,7 +679,8 @@ button:active {
   align-items: center;
   justify-content: space-between;
   padding-left: 48px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
 }
 
 .back-to-cal-btn {
@@ -723,7 +739,8 @@ button:active {
   align-items: flex-start;
   justify-content: space-between;
   padding-left: 48px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .date-titles {
@@ -767,26 +784,20 @@ button:active {
   text-transform: uppercase;
 }
 
-/* Notebook Tools Strip (Ergonomic Two-Row Layout on Mobile & Desktop) */
+/* Notebook Tools Strip: Streamlined Ergonomic Single-Row Toolbar */
 .notebook-tools-strip {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
   padding-left: 48px;
-  padding-top: 6px;
-  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 6px;
   border-top: 1px solid rgba(160, 120, 80, 0.2);
   border-bottom: 1px solid rgba(160, 120, 80, 0.2);
-  margin-bottom: 8px;
-}
-
-.tools-upper-row,
-.tools-lower-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .tool-group {
@@ -912,67 +923,11 @@ button:active {
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-/* Vintage Line Height / Font Size Slider */
-.slider-group {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.slider-icon-small {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #8c603b;
-}
-
-.slider-icon-large {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #55331a;
-}
-
-.vintage-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 80px;
-  height: 4px;
-  background: #d8c2a5;
-  border-radius: 2px;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.vintage-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fce9a7, #c49758);
-  border: 1.5px solid #7c581a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.vintage-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
-.vintage-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fce9a7, #c49758);
-  border: 1.5px solid #7c581a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
-}
-
 /* Ruled Title Input */
 .note-title-line {
   padding-left: 48px;
   margin-bottom: 2px;
+  flex-shrink: 0;
 }
 
 .ruled-title-field {
@@ -992,6 +947,7 @@ button:active {
 .notebook-body-wrap {
   position: relative;
   flex: 1;
+  height: 100%;
   min-height: 0;
   display: flex;
   overflow: hidden;
@@ -1056,11 +1012,12 @@ button:active {
   align-items: center;
   justify-content: space-between;
   padding-left: 48px;
-  padding-top: 10px;
+  padding-top: 6px;
   border-top: 1px solid rgba(160, 120, 80, 0.2);
-  margin-top: 8px;
+  margin-top: 4px;
   flex-wrap: wrap;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .save-status-indicator {
@@ -1212,34 +1169,47 @@ button:active {
    ------------------------------------------------------------- */
 @media (max-width: 680px) {
   .desk-container {
-    padding: 10px 8px calc(20px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 6px calc(14px + env(safe-area-inset-bottom, 0px));
   }
 
   .app-header {
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   .brand-sub {
     display: none;
   }
 
+  .journal-stage {
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+  }
+
   .moleskine-journal {
-    padding: 8px 6px 10px;
+    padding: 6px 6px 8px;
     border-radius: 10px;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
   }
 
   .journal-card {
     flex: 1;
     min-height: 0;
+    height: 100%;
   }
 
   .card-inner {
-    padding: 14px 10px 14px;
+    padding: 10px 8px 8px;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
   }
 
   .calendar-header-strip {
-    padding-bottom: 8px;
-    margin-bottom: 10px;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .cal-month-title {
@@ -1247,48 +1217,76 @@ button:active {
   }
 
   .day-cell {
-    height: 40px;
+    height: 38px;
     font-size: 0.9rem;
   }
 
   .notebook-red-margin {
-    left: 42px;
+    left: 40px;
   }
 
-  .notebook-nav-bar,
-  .entry-date-header,
-  .notebook-tools-strip,
-  .note-title-line,
-  .notebook-status-footer {
-    padding-left: 36px;
+  .notebook-nav-bar {
+    margin-bottom: 4px;
+    padding-left: 34px;
   }
 
-  .notebook-ruled-body {
-    padding-left: 36px;
-    font-size: 1.15rem; /* Prevents auto-zoom on mobile */
+  .entry-date-header {
+    margin-bottom: 4px;
+    padding-left: 34px;
+  }
+
+  .entry-weekday-title {
+    font-size: 1.2rem;
+  }
+
+  .entry-date-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .notebook-tools-strip {
+    gap: 8px;
+    padding-left: 34px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+  }
+
+  .note-title-line {
+    padding-left: 34px;
+    margin-bottom: 2px;
   }
 
   .ruled-title-field {
     font-size: 1.15rem;
   }
 
-  .entry-weekday-title {
-    font-size: 1.25rem;
+  .notebook-body-wrap {
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    margin-top: 2px;
   }
 
-  .notebook-tools-strip {
-    gap: 6px;
+  .notebook-ruled-body {
+    padding-left: 34px;
+    font-size: 1.15rem; /* Prevents auto-zoom on mobile */
+  }
+
+  .notebook-status-footer {
+    padding-left: 34px;
+    padding-top: 4px;
+    margin-top: 4px;
   }
 }
 
 @media (max-width: 380px) {
   .day-cell {
-    height: 35px;
+    height: 34px;
     font-size: 0.82rem;
   }
 
   .notebook-red-margin {
-    left: 34px;
+    left: 32px;
   }
 
   .notebook-nav-bar,
@@ -1297,6 +1295,6 @@ button:active {
   .note-title-line,
   .notebook-status-footer,
   .notebook-ruled-body {
-    padding-left: 28px;
+    padding-left: 26px;
   }
 }

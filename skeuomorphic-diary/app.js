@@ -617,19 +617,7 @@
     });
   }
 
-  // Interactive Line Height & Font Size Slider
-  const lineSizeSlider = document.getElementById('line-size-slider');
-  if (lineSizeSlider) {
-    lineSizeSlider.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value, 10);
-      document.documentElement.style.setProperty('--ruled-line-height', `${val}px`);
-      // Proportionally scale body font size
-      const bodyRem = (val * 0.036).toFixed(2);
-      noteBodyTextarea.style.fontSize = `${bodyRem}rem`;
-      noteTitleInput.style.height = `${val}px`;
-      noteTitleInput.style.lineHeight = `${val}px`;
-    });
-  }
+
 
   // Erase Page
   btnErasePage.addEventListener('click', () => {
