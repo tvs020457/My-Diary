@@ -1,0 +1,18 @@
+{
+  "name": "Skeuomorphic Journal & Diary",
+  "short_name": "My Diary",
+  "description": "Handcrafted leatherbound diary with calendar and lined notebook notes",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#190c05",
+  "theme_color": "#2a150b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

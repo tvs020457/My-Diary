@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2a150b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="My Diary">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>The Leatherbound Journal &amp; Calendar Diary</title>
+  <meta name="description" content="A handcrafted skeuomorphic leatherbound diary with calendar, realistic lined notebook paper, fountain pens, sound effects, and vintage aesthetics.">
+  
+  <!-- Google Fonts: Vintage handwriting, classic book serif, typewriter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cinzel:wght@600;700;800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Kalam:wght@300;400;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Desk Lighting & Texture Layer -->
+  <div class="desk-surface">
+    <div class="desk-vignette"></div>
+    <div class="lamp-glow"></div>
+
+    <!-- Desk Header / Wooden Plaque -->
+    <header class="desk-header">
+      <div class="brass-plaque">
+        <span class="plaque-screw top-left"></span>
+        <span class="plaque-screw top-right"></span>
+        <span class="plaque-screw bottom-left"></span>
+        <span class="plaque-screw bottom-right"></span>
+        <div class="plaque-title">CHRONICLES &bull; PERSONAL DIARY</div>
+        <div class="plaque-subtitle">Handcrafted Edition &bull; Anno Domini</div>
+      </div>
+
+      <!-- Controls: Sound Toggle, Font Switcher, Ribbon Jump to Today -->
+      <div class="desk-controls">
+        <button id="toggle-sound-btn" class="brass-button" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+          <span class="btn-icon" id="sound-icon">&#128266;</span>
+          <span class="btn-label">Sound: <strong id="sound-status">ON</strong></span>
+        </button>
+
+        <button id="today-btn" class="brass-button" title="Jump to Today's Page" aria-label="Jump to Today">
+          <span class="btn-icon">&#128197;</span>
+          <span class="btn-label">Today</span>
+        </button>
+
+        <button id="export-btn" class="brass-button" title="Export this Entry" aria-label="Export Entry">
+          <span class="btn-icon">&#128221;</span>
+          <span class="btn-label">Export</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Journal Desk Workspace -->
+    <main class="journal-desk-area">
+      
+      <!-- Desk Accessories on the Left/Side -->
+      <aside class="desk-accessories-left">
+        <!-- Leather Pen Holder / Ink Palette Tray -->
+        <div class="wooden-tray">
+          <div class="tray-label">INKWELL &amp; TOOLS</div>
+          <div class="pen-dock" id="pen-dock">
+            <button class="pen-tool active" data-ink="ink-blue" title="Prussian Blue Fountain Pen">
+              <span class="pen-body fountain-pen blue-pen">
+                <span class="nib"></span>
+              </span>
+              <span class="tool-name">Blue Ink</span>
+            </button>
+            <button class="pen-tool" data-ink="ink-black" title="Carbon Black Fountain Pen">
+              <span class="pen-body fountain-pen black-pen">
+                <span class="nib"></span>
+              </span>
+              <span class="tool-name">Black Ink</span>
+            </button>
+            <button class="pen-tool" data-ink="ink-sepia" title="Vintage Sepia Pen">
+              <span class="pen-body fountain-pen sepia-pen">
+                <span class="nib"></span>
+              </span>
+              <span class="tool-name">Sepia</span>
+            </button>
+            <button class="pen-tool" data-ink="ink-crimson" title="Carmine Red Pen">
+              <span class="pen-body fountain-pen crimson-pen">
+                <span class="nib"></span>
+              </span>
+              <span class="tool-name">Red Ink</span>
+            </button>
+            <button class="pen-tool pencil-tool" data-ink="ink-pencil" title="Graphite Pencil">
+              <span class="pen-body pencil-body">
+                <span class="lead"></span>
+              </span>
+              <span class="tool-name">Pencil</span>
+            </button>
+          </div>
+
+          <!-- Font Style Picker -->
+          <div class="font-selector-wrap">
+            <label for="font-select" class="tray-sublabel">HANDWRITING STYLE</label>
+            <select id="font-select" class="vintage-select">
+              <option value="font-kalam" selected>Cursive Script (Kalam)</option>
+              <option value="font-caveat">Informal Ink (Caveat)</option>
+              <option value="font-spectral">Book Antiqua (Spectral)</option>
+              <option value="font-courier">Typewriter (Courier)</option>
+            </select>
+          </div>
+
+          <!-- Wax Stamp Mood Picker -->
+          <div class="stamps-panel">
+            <div class="tray-sublabel">MOOD STAMP</div>
+            <div class="stamp-buttons" id="stamp-buttons">
+              <button class="stamp-btn" data-stamp="stamp-joy" title="Joyful / Radiant Day">☀️</button>
+              <button class="stamp-btn" data-stamp="stamp-peace" title="Peaceful / Calm">☕</button>
+              <button class="stamp-btn" data-stamp="stamp-rain" title="Reflective / Rainy">🌧️</button>
+              <button class="stamp-btn" data-stamp="stamp-star" title="Memorable / Star Day">⭐</button>
+              <button class="stamp-btn" data-stamp="stamp-heart" title="Beloved / Grateful">❤️</button>
+              <button class="stamp-btn" data-stamp="stamp-leaf" title="Nature / Growth">🌿</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- The Skeuomorphic Journal (Book with Spine, Stitching, Two-Page Spread) -->
+      <section class="journal-container" id="journal-book">
+        
+        <!-- Leather Cover & Brass Corner Accents -->
+        <div class="leather-cover-edge top-edge"></div>
+        <div class="leather-cover-edge bottom-edge"></div>
+        <div class="leather-corner top-left-corner"></div>
+        <div class="leather-corner top-right-corner"></div>
+        <div class="leather-corner bottom-left-corner"></div>
+        <div class="leather-corner bottom-right-corner"></div>
+        
+        <!-- Stitched Leather Edge Border -->
+        <div class="leather-stitching"></div>
+
+        <!-- Satin Bookmark Ribbon hanging down -->
+        <div class="satin-ribbon" id="satin-ribbon" title="Click to bookmark/jump to current day">
+          <div class="ribbon-tail"></div>
+        </div>
+
+        <!-- Brass Clasp / Buckle at edge -->
+        <div class="brass-clasp" id="brass-clasp" title="Diary Clasp">
+          <div class="clasp-rivet"></div>
+        </div>
+
+        <!-- Book Spine Center Binding with stitches & 3D shadow crease -->
+        <div class="book-spine">
+          <div class="spine-highlight"></div>
+          <div class="spine-thread spine-thread-1"></div>
+          <div class="spine-thread spine-thread-2"></div>
+          <div class="spine-thread spine-thread-3"></div>
+          <div class="spine-thread spine-thread-4"></div>
+          <div class="spine-thread spine-thread-5"></div>
+        </div>
+
+        <!-- Left Page: The Skeuomorphic Desk Calendar & Journal Index -->
+        <div class="journal-page left-page" id="left-page">
+          <!-- Page Texture Layer -->
+          <div class="paper-texture"></div>
+          <div class="perforated-margin margin-right"></div>
+          <div class="binder-holes left-binder-holes">
+            <span class="hole"></span>
+            <span class="hole"></span>
+            <span class="hole"></span>
+          </div>
+
+          <!-- Calendar Header with Vintage Brass Navigation -->
+          <div class="page-content calendar-page-content">
+            <div class="vintage-calendar-header">
+              <div class="embossed-title">CHRONOLOGICAL ALMANAC</div>
+              
+              <div class="cal-nav-bar">
+                <button id="prev-month-btn" class="wax-nav-btn" aria-label="Previous Month">&lsaquo;</button>
+                <div class="current-month-display" id="current-month-display">OCTOBER 2026</div>
+                <button id="next-month-btn" class="wax-nav-btn" aria-label="Next Month">&rsaquo;</button>
+              </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="calendar-wrapper">
+              <div class="calendar-weekdays">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="calendar-days-grid" id="calendar-days-grid">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+
+            <!-- Entries Index / Mini Navigator for Selected Month -->
+            <div class="monthly-memories-box">
+              <div class="index-ribbon-tag">Entries Recorded this Month</div>
+              <ul class="entries-mini-list" id="entries-mini-list">
+                <li class="empty-entries">No recorded entries this month yet. Click any day above to start writing.</li>
+              </ul>
+            </div>
+
+            <!-- Wax Seal of Authenticity at bottom left -->
+            <div class="wax-seal-container" id="wax-seal">
+              <div class="wax-seal-outer">
+                <div class="wax-seal-inner">
+                  <span class="seal-glyph">&#10022;</span>
+                  <span class="seal-text">VERITAS</span>
+                </div>
+              </div>
+              <div class="seal-tagline">Saved automatically</div>
+            </div>
+            
+            <div class="page-number left-pg-num" id="left-pg-num">Page XXIV</div>
+          </div>
+        </div>
+
+        <!-- Right Page: Lined Notebook Page with Beige Background -->
+        <div class="journal-page right-page" id="right-page">
+          <!-- Paper Texture Layer -->
+          <div class="paper-texture"></div>
+          <div class="perforated-margin margin-left"></div>
+          <div class="binder-holes right-binder-holes">
+            <span class="hole"></span>
+            <span class="hole"></span>
+            <span class="hole"></span>
+          </div>
+
+          <!-- Notebook Red Margin Guide Line -->
+          <div class="red-margin-line"></div>
+
+          <div class="page-content note-page-content">
+            <!-- Entry Header on Notebook Lines -->
+            <div class="note-header-block">
+              <div class="entry-date-section">
+                <span class="date-calligraphy-day" id="entry-weekday">Friday</span>
+                <span class="date-calligraphy-full" id="entry-full-date">October 2, 2026</span>
+              </div>
+
+              <!-- Weather & Mood Badges stamped on the page -->
+              <div class="entry-stamp-display" id="entry-stamp-display" title="Active Mood Stamp">
+                <span class="active-stamp-symbol" id="active-stamp-symbol">☀️</span>
+                <span class="stamp-ink-caption" id="stamp-ink-caption">Serene</span>
+              </div>
+            </div>
+
+            <!-- Entry Title Input on Ruled Line -->
+            <div class="entry-title-wrap">
+              <input type="text" id="entry-title-input" class="ruled-title-input font-kalam ink-blue" placeholder="Entry Title or Thought..." maxlength="80">
+            </div>
+
+            <!-- Lined Paper Notebook Writing Area -->
+            <div class="lined-paper-notebook">
+              <textarea 
+                id="entry-body-textarea" 
+                class="notebook-ruled-textarea font-kalam ink-blue" 
+                placeholder="Dear Diary, today begins with a quiet morning..."
+                spellcheck="false"
+              ></textarea>
+            </div>
+
+            <!-- Footer of the Ruled Note Page -->
+            <div class="note-footer-bar">
+              <div class="save-status-wrap">
+                <span class="ink-blot-icon" id="save-blot">&#9679;</span>
+                <span class="save-label" id="save-status-text">Ink Dried &bull; Saved</span>
+              </div>
+
+              <div class="word-counter" id="word-counter">0 words</div>
+
+              <div class="page-actions">
+                <button id="clear-entry-btn" class="sepia-text-btn" title="Clear this entry">Erase Page</button>
+              </div>
+
+              <div class="page-number right-pg-num" id="right-pg-num">Page XXV</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Desk Accessories on the Right -->
+      <aside class="desk-accessories-right">
+        <!-- Bookmark / Quick Navigation Card -->
+        <div class="quick-nav-card">
+          <div class="tray-label">NAVIGATION</div>
+          
+          <div class="day-stepper">
+            <button id="prev-day-btn" class="stepper-btn" title="Previous Day">
+              <span>&larr;</span> Yesterday
+            </button>
+            <button id="next-day-btn" class="stepper-btn" title="Next Day">
+              Tomorrow <span>&rarr;</span>
+            </button>
+          </div>
+
+          <!-- Quick Jump / Recent Memory Strip -->
+          <div class="recent-strip">
+            <div class="tray-sublabel">RECENT PAGES</div>
+            <div class="recent-tags-list" id="recent-tags-list">
+              <!-- Injected dynamically -->
+            </div>
+          </div>
+
+          <!-- Polaroid Memory / Sketch attachment -->
+          <div class="polaroid-frame" id="polaroid-frame">
+            <div class="brass-pin"></div>
+            <div class="polaroid-photo">
+              <div class="photo-art" id="photo-art">
+                <div class="photo-tree">🌲</div>
+                <div class="photo-sun">☀️</div>
+                <div class="photo-quote" id="photo-quote">"Write what should not be forgotten."</div>
+              </div>
+            </div>
+            <div class="polaroid-caption" id="polaroid-caption">Autumn Thoughts</div>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- Mobile Bottom Brass & Leather Drawer -->
+    <div class="mobile-drawer-container" id="mobile-drawer-container">
+      
+      <!-- Slide-up Tools Panel (Inkwells, Fonts, Stamps, Stepper) -->
+      <div class="mobile-tools-panel" id="mobile-tools-panel">
+        <div class="drawer-drag-handle" id="drawer-drag-handle">
+          <span class="handle-bar"></span>
+        </div>
+        
+        <div class="mobile-tools-content">
+          <!-- Mobile Inks -->
+          <div class="mobile-tool-row">
+            <span class="mobile-row-label">INK:</span>
+            <div class="mobile-pens-dock" id="mobile-pens-dock">
+              <button class="mobile-pen-dot active ink-blue-dot" data-ink="ink-blue" title="Prussian Blue"></button>
+              <button class="mobile-pen-dot ink-black-dot" data-ink="ink-black" title="Carbon Black"></button>
+              <button class="mobile-pen-dot ink-sepia-dot" data-ink="ink-sepia" title="Vintage Sepia"></button>
+              <button class="mobile-pen-dot ink-crimson-dot" data-ink="ink-crimson" title="Carmine Red"></button>
+              <button class="mobile-pen-dot ink-pencil-dot" data-ink="ink-pencil" title="Graphite Pencil"></button>
+            </div>
+          </div>
+
+          <!-- Mobile Font & Mood Stamps -->
+          <div class="mobile-tool-row">
+            <span class="mobile-row-label">FONT:</span>
+            <select id="mobile-font-select" class="mobile-vintage-select">
+              <option value="font-kalam" selected>Cursive (Kalam)</option>
+              <option value="font-caveat">Handwriting (Caveat)</option>
+              <option value="font-spectral">Book Antiqua (Spectral)</option>
+              <option value="font-courier">Typewriter (Courier)</option>
+            </select>
+          </div>
+
+          <!-- Mobile Stamps -->
+          <div class="mobile-tool-row">
+            <span class="mobile-row-label">STAMP:</span>
+            <div class="mobile-stamps-dock" id="mobile-stamps-dock">
+              <button class="mobile-stamp-btn active" data-stamp="stamp-joy" title="Joyful">☀️</button>
+              <button class="mobile-stamp-btn" data-stamp="stamp-peace" title="Peaceful">☕</button>
+              <button class="mobile-stamp-btn" data-stamp="stamp-rain" title="Reflective">🌧️</button>
+              <button class="mobile-stamp-btn" data-stamp="stamp-star" title="Inspired">⭐</button>
+              <button class="mobile-stamp-btn" data-stamp="stamp-heart" title="Beloved">❤️</button>
+              <button class="mobile-stamp-btn" data-stamp="stamp-leaf" title="Grounded">🌿</button>
+            </div>
+          </div>
+
+          <!-- Mobile Quick Day Stepper -->
+          <div class="mobile-stepper-row">
+            <button id="mobile-prev-day-btn" class="brass-button-mini">&larr; Yesterday</button>
+            <button id="mobile-today-btn" class="brass-button-mini">&#128197; Today</button>
+            <button id="mobile-next-day-btn" class="brass-button-mini">Tomorrow &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Docked Brass Bottom Bar (Always visible on mobile) -->
+      <nav class="mobile-bottom-bar" id="mobile-bottom-bar">
+        <button class="mobile-tab-btn active" data-target="calendar" id="mobile-tab-calendar">
+          <span class="tab-icon">&#128197;</span>
+          <span class="tab-text">Almanac</span>
+        </button>
+
+        <button class="mobile-tools-toggle-btn" id="mobile-tools-toggle-btn" title="Open Ink &amp; Tools">
+          <span class="tools-toggle-icon">&#9998;</span>
+          <span class="tools-toggle-label">Ink &amp; Tools</span>
+          <span class="tools-arrow-indicator" id="tools-arrow-indicator">&#9650;</span>
+        </button>
+
+        <button class="mobile-tab-btn" data-target="notes" id="mobile-tab-notes">
+          <span class="tab-icon">&#128221;</span>
+          <span class="tab-text">Notebook</span>
+        </button>
+      </nav>
+
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal-backdrop" id="export-modal" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>ARCHIVE ENTRY</h3>
+          <button class="modal-close" id="modal-close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-intro">Your manuscript for <strong id="modal-entry-date">October 2, 2026</strong>:</p>
+          <div class="modal-manuscript-preview" id="modal-preview-text"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="brass-button" id="copy-clipboard-btn">Copy Text</button>
+          <button class="brass-button" id="print-entry-btn">Print Page</button>
+          <button class="brass-button" id="download-txt-btn">Download .txt</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

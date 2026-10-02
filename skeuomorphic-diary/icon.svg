@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="leatherGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a2512"/>
+      <stop offset="50%" stop-color="#2c1409"/>
+      <stop offset="100%" stop-color="#190a04"/>
+    </linearGradient>
+    <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fce9a7"/>
+      <stop offset="50%" stop-color="#d4a23b"/>
+      <stop offset="100%" stop-color="#825f1b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Leather Journal Cover -->
+  <rect x="64" y="44" width="384" height="424" rx="28" fill="url(#leatherGrad)" stroke="#120602" stroke-width="8"/>
+  
+  <!-- Stitched border -->
+  <rect x="80" y="60" width="352" height="392" rx="20" fill="none" stroke="#d4a373" stroke-width="4" stroke-dasharray="8 6" opacity="0.7"/>
+
+  <!-- Brass Corners -->
+  <path d="M 64 120 L 64 72 Q 64 44 92 44 L 140 44 Z" fill="url(#brassGrad)"/>
+  <path d="M 448 120 L 448 72 Q 448 44 420 44 L 372 44 Z" fill="url(#brassGrad)"/>
+  <path d="M 64 392 L 64 440 Q 64 468 92 468 L 140 468 Z" fill="url(#brassGrad)"/>
+  <path d="M 448 392 L 448 440 Q 448 468 420 468 L 372 468 Z" fill="url(#brassGrad)"/>
+
+  <!-- Satin Ribbon Hanging -->
+  <path d="M 238 40 L 274 40 L 274 480 L 256 462 L 238 480 Z" fill="#a81c24"/>
+
+  <!-- Spine Binding Loops -->
+  <rect x="52" y="120" width="24" height="6" rx="3" fill="#fce9a7"/>
+  <rect x="52" y="253" width="24" height="6" rx="3" fill="#fce9a7"/>
+  <rect x="52" y="386" width="24" height="6" rx="3" fill="#fce9a7"/>
+
+  <!-- Embossed Monogram / Feather Quill -->
+  <circle cx="256" cy="256" r="64" fill="none" stroke="url(#brassGrad)" stroke-width="6"/>
+  <path d="M 230 286 L 278 226 Q 284 216 288 230 Q 278 244 266 256 Z" fill="url(#brassGrad)"/>
+  <circle cx="230" cy="286" r="4" fill="#fce9a7"/>
+</svg>
